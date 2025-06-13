@@ -66,7 +66,9 @@ LAYERED_PACKAGES=(
 
 dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y "${LAYERED_PACKAGES[@]}"
 
-dnf5 erase plymouth
+systemctl disable --now plymouth 
+
+dnf5 remove plymouth
 
 log "Package install complete."
 
