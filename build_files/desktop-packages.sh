@@ -15,7 +15,6 @@ log "Installing RPM packages"
 LAYERED_PACKAGES=(
     # Core system
     fish
-    tailscale
     lm_sensors
     starship
 
@@ -29,9 +28,7 @@ LAYERED_PACKAGES=(
     cockpit-machines
     cockpit-storaged
     cockpit-networkmanager
-    cockpit-pcp
     cockpit-selinux
-    NetworkManager
     pcp
     libvirt
     virt-install
