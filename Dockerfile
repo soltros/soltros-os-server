@@ -41,15 +41,15 @@ RUN ln -sf /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user
 
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
-    curl --retry 3 --retry-delay 5 -Lo /usr/lib/os-release https://raw.githubusercontent.com/soltros/Soltros-OS/refs/heads/main/resources/os-release && \
+    curl --retry 3 --retry-delay 5 -Lo /usr/lib/os-release https://raw.githubusercontent.com/soltros/soltros-os-server/refs/heads/main/resources/os-release && \
     break || sleep 10; \
     done && \
     for i in {1..3}; do \
-    curl --retry 3 --retry-delay 5 -Lo /etc/motd https://raw.githubusercontent.com/soltros/Soltros-OS/refs/heads/main/resources/motd && \
+    curl --retry 3 --retry-delay 5 -Lo /etc/motd https://raw.githubusercontent.com/soltros/soltros-os-server/refs/heads/main/resources/motd && \
     break || sleep 10; \
     done && \
     for i in {1..3}; do \
-    curl --retry 3 --retry-delay 5 -Lo /etc/dconf/db/local.d/00-soltros-settings https://raw.githubusercontent.com/soltros/Soltros-OS/refs/heads/main/resources/00-soltros-settings && \
+    curl --retry 3 --retry-delay 5 -Lo /etc/dconf/db/local.d/00-soltros-settings https://raw.githubusercontent.com/soltros/soltros-os-server/refs/heads/main/resources/00-soltros-settings && \
     break || sleep 10; \
     done && \
     echo -e '\n\e[1;36mWelcome to SoltrOS Server — powered by Universal Blue\e[0m\n' > /etc/issue
