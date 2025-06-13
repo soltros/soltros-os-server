@@ -39,9 +39,6 @@ RUN ln -sf /usr/lib/systemd/system/tailscaled.service /etc/systemd/system/multi-
 # Enable Docker
 RUN ln -sf /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
 
-# Enable OpenSSH
-RUN ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service
-
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
     curl --retry 3 --retry-delay 5 -Lo /usr/lib/os-release https://raw.githubusercontent.com/soltros/Soltros-OS/refs/heads/main/resources/os-release && \
