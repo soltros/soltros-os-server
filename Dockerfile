@@ -38,9 +38,6 @@ RUN ln -sf /usr/lib/systemd/system/tailscaled.service /etc/systemd/system/multi-
 # Enable Docker
 RUN ln -sf /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
 
-# Enable Network Manager
-RUN ln -s /usr/lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service
-
 # Enable OpenSSH
 RUN ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service
 
