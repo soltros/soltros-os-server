@@ -14,6 +14,7 @@ RUN chmod +x \
     /ctx/overrides.sh \
     /ctx/cleanup.sh \
     /ctx/desktop-packages.sh \
+    /ctx/disable-services.sh \
    /ctx/desktop-defaults.sh
 
 # Stage 2: final image
