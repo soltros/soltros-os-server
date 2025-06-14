@@ -11,6 +11,10 @@ log() {
 log "Enable podman socket"
 systemctl enable podman.socket
 
+log "Enable thermal management services (if available)"
+systemctl enable thermald.service 2>/dev/null || log "thermald not available"
+systemctl enable mbpfan.service 2>/dev/null || log "mbpfan not available"
+
 log "Enable PCP (Performance Co-Pilot) services"
 # Core PCP daemon - must be started first
 systemctl enable pmcd.service
@@ -38,5 +42,11 @@ systemctl enable tailscaled.service
 
 log "Enable audit daemon"
 systemctl enable auditd.service
+
+log "Enable libvirt virtualization services"
+systemctl enable libvirtd.service
+systemctl enable virtlogd.service
+systemctl enable virtlockd.service
+
 
 log "Service enablement completed"
