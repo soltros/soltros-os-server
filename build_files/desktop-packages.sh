@@ -37,6 +37,10 @@ LAYERED_PACKAGES=(
     bind-utils
     ncdu
     openssh-server
+    libnfsidmap
+    sssd-nfs-idmap
+    nfs-utils
+    samba
 
     # Essential CLI tools
     btop

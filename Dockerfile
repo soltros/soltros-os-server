@@ -40,6 +40,30 @@ RUN ln -sf /usr/lib/systemd/system/tailscaled.service /etc/systemd/system/multi-
 # Enable Docker
 RUN ln -sf /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
 
+RUN ln -sf /usr/lib/systemd/system/podman.socket /etc/systemd/system/sockets.target.wants/podman.socket
+
+# Core PCP daemon - must be started first
+RUN ln -sf /usr/lib/systemd/system/pmcd.service /etc/systemd/system/multi-user.target.wants/pmcd.service
+# Performance Metrics Inference Engine services
+
+RUN ln -sf /usr/lib/systemd/system/pmie.service /etc/systemd/system/multi-user.target.wants/pmie.service
+RUN ln -sf /usr/lib/systemd/system/pmie_farm.service /etc/systemd/system/multi-user.target.wants/pmie_farm.service
+
+# Performance Metrics Archive Logger services
+RUN ln -sf /usr/lib/systemd/system/pmlogger.service /etc/systemd/system/multi-user.target.wants/pmlogger.service
+RUN ln -sf /usr/lib/systemd/system/pmlogger_farm.service /etc/systemd/system/multi-user.target.wants/pmlogger_farm.service
+
+RUN ln -sf /usr/lib/systemd/system/cockpit.socket /etc/systemd/system/sockets.target.wants/cockpit.socket
+
+RUN ln -sf /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
+RUN ln -sf /usr/lib/systemd/system/containerd.service /etc/systemd/system/multi-user.target.wants/containerd.service
+
+RUN ln -sf /usr/lib/systemd/system/auditd.service /etc/systemd/system/multi-user.target.wants/auditd.service
+
+RUN ln -sf /usr/lib/systemd/system/libvirtd.service /etc/systemd/system/multi-user.target.wants/libvirtd.service
+RUN ln -sf /usr/lib/systemd/system/virtlogd.service /etc/systemd/system/multi-user.target.wants/virtlogd.service
+RUN ln -sf /usr/lib/systemd/system/virtlockd.service /etc/systemd/system/multi-user.target.wants/virtlockd.service
+
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
     curl --retry 3 --retry-delay 5 -Lo /usr/lib/os-release https://raw.githubusercontent.com/soltros/soltros-os-server/refs/heads/main/resources/os-release && \
