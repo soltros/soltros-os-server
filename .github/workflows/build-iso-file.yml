@@ -18,8 +18,8 @@ jobs:
         run: |
           mkdir -p kickstart
           cat > kickstart/soltros-server.ks << 'EOF'
-          # Use text mode install
-          text
+          # Use graphical install to show user creation screens
+          graphical
           
           # Keyboard layouts
           keyboard --xlayouts='us'
@@ -33,30 +33,27 @@ jobs:
           # Use network installation
           url --mirrorlist="https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-42&arch=x86_64"
           
-          # Root password (you should change this or use --iscrypted with a hashed password)
-          rootpw --plaintext soltros123
+          # Do NOT set root password - let user configure during install
+          # rootpw --lock
           
           # System services
           services --enabled="NetworkManager,sshd"
           
-          # System timezone
-          timezone America/New_York --utc
+          # System timezone (will be configurable during install)
+          # timezone America/New_York --utc
           
-          # User creation during installation
-          user --groups=wheel --name=soltros --password=soltros123 --plaintext --gecos="SoltrOS User"
+          # Do NOT pre-create user - let installer handle this
+          # This ensures the user creation screen appears during installation
           
-          # Disk partitioning
-          autopart
-          clearpart --none --initlabel
+          # Disk partitioning - let user configure during install
+          # autopart
+          # clearpart --none --initlabel
           
           # SELinux configuration
           selinux --enforcing
           
           # Firewall configuration
           firewall --enabled --ssh
-          
-          # Skip X config
-          skipx
           
           # Package selection
           %packages
@@ -71,15 +68,6 @@ jobs:
           %post --log=/var/log/anaconda/post-install.log
           # Enable sudo for wheel group
           echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers.d/wheel
-          
-          # Set up SSH keys if needed
-          # mkdir -p /home/soltros/.ssh
-          # echo "your-ssh-public-key-here" > /home/soltros/.ssh/authorized_keys
-          # chown -R soltros:soltros /home/soltros/.ssh
-          # chmod 700 /home/soltros/.ssh
-          # chmod 600 /home/soltros/.ssh/authorized_keys
-          
-          # Additional post-installation customizations can go here
           %end
           
           # Reboot after installation
