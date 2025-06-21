@@ -1,6 +1,7 @@
 # Set base image and tag
-ARG BASE_IMAGE=ghcr.io/ublue-os/base-main
-ARG TAG_VERSION=latest
+ARG BASE_IMAGE=quay.io/fedora/fedora-coreos
+ARG TAG_VERSION=stable
+FROM ${BASE_IMAGE}:${TAG_VERSION}
 
 # Stage 1: context for scripts (not included in final image)
 FROM ${BASE_IMAGE}:${TAG_VERSION} AS ctx
@@ -21,7 +22,7 @@ RUN chmod +x \
 FROM ${BASE_IMAGE}:${TAG_VERSION} AS soltros
 
 LABEL org.opencontainers.image.title="SoltrOS Server" \
-    org.opencontainers.image.description="Server-ready Universal Blue image with Docker CE support" \
+    org.opencontainers.image.description="Server-ready Fedora CoreOS image with Docker CE support" \
     org.opencontainers.image.vendor="Derrik" \
     org.opencontainers.image.version="42"
 
