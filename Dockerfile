@@ -33,7 +33,7 @@ COPY repo_files/docker-ce.repo /etc/yum.repos.d/docker-ce.repo
 # Create necessary directories for shell configurations
 RUN mkdir -p /etc/profile.d /etc/fish/conf.d
 
-RUN rpm-ostree install NetworkManager tailscale docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin openssh-server
+RUN dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y NetworkManager tailscale docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin openssh-server
 
 # Enable Tailscale
 RUN ln -sf /usr/lib/systemd/system/tailscaled.service /etc/systemd/system/multi-user.target.wants/tailscaled.service
