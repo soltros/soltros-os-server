@@ -1,5 +1,5 @@
 # Set base image and tag
-ARG BASE_IMAGE=quay.io/fedora/fedora-coreos
+ARG BASE_IMAGE=quay.io/fedora/fedora-bootc
 ARG TAG_VERSION=stable
 FROM ${BASE_IMAGE}:${TAG_VERSION}
 
@@ -64,6 +64,22 @@ RUN ln -sf /usr/lib/systemd/system/auditd.service /etc/systemd/system/multi-user
 RUN ln -sf /usr/lib/systemd/system/libvirtd.service /etc/systemd/system/multi-user.target.wants/libvirtd.service
 RUN ln -sf /usr/lib/systemd/system/virtlogd.service /etc/systemd/system/multi-user.target.wants/virtlogd.service
 RUN ln -sf /usr/lib/systemd/system/virtlockd.service /etc/systemd/system/multi-user.target.wants/virtlockd.service
+
+# Get rid of Plymouth
+
+RUN dnf5 remove plymouth* -y && \
+    systemctl disable plymouth-start.service plymouth-read-write.service plymouth-quit.service plymouth-quit-wait.service plymouth-reboot.service plymouth-kexec.service plymouth-halt.service plymouth-poweroff.service 2>/dev/null || true && \
+    rm -rf /usr/share/plymouth /usr/lib/plymouth /etc/plymouth && \
+    rm -f /usr/lib/systemd/system/plymouth* /usr/lib/systemd/system/*/plymouth* && \
+    rm -f /usr/bin/plymouth /usr/sbin/plymouthd && \
+    sed -i 's/rhgb quiet//' /etc/default/grub 2>/dev/null || true && \
+    sed -i 's/splash//' /etc/default/grub 2>/dev/null || true && \
+    sed -i '/plymouth/d' /etc/dracut.conf.d/* 2>/dev/null || true && \
+    echo 'omit_dracutmodules+=" plymouth "' > /etc/dracut.conf.d/99-disable-plymouth.conf && \
+    grub2-mkconfig -o /boot/grub2/grub.cfg 2>/dev/null || true && \
+    dracut -f 2>/dev/null || true && \
+    dnf5 autoremove -y && \
+    dnf5 clean all
 
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
