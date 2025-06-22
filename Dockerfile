@@ -81,6 +81,34 @@ RUN dnf5 remove plymouth* -y && \
     dnf5 autoremove -y && \
     dnf5 clean all
 
+# Create 8GB swapfile
+RUN dd if=/dev/zero of=/swapfile bs=1M count=8192 && \
+    chmod 600 /swapfile && \
+    mkswap /swapfile && \
+    echo '/swapfile none swap sw 0 0' >> /etc/fstab
+
+# Enable swap service to activate swapfile on boot
+RUN systemctl enable systemd-swap.service 2>/dev/null || \
+    (echo "systemd-swap not available, creating custom swap service" && \
+    cat > /etc/systemd/system/swapfile.service << 'EOF'
+[Unit]
+Description=Turn on swap file
+After=systemd-remount-fs.service
+Before=systemd-sysusers.service sysinit.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/sbin/swapon /swapfile
+ExecStop=/usr/sbin/swapoff /swapfile
+
+[Install]
+WantedBy=sysinit.target
+EOF
+    ) && \
+    systemctl enable swapfile.service
+
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
     curl --retry 3 --retry-delay 5 -Lo /usr/lib/os-release https://raw.githubusercontent.com/soltros/soltros-os-server/refs/heads/main/resources/os-release && \
