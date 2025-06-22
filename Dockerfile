@@ -87,27 +87,24 @@ RUN dd if=/dev/zero of=/swapfile bs=1M count=8192 && \
     mkswap /swapfile && \
     echo '/swapfile none swap sw 0 0' >> /etc/fstab
 
-# Enable swap service to activate swapfile on boot
-RUN systemctl enable systemd-swap.service 2>/dev/null || \
-    (echo "systemd-swap not available, creating custom swap service" && \
-    cat > /etc/systemd/system/swapfile.service << 'EOF'
-[Unit]
-Description=Turn on swap file
-After=systemd-remount-fs.service
-Before=systemd-sysusers.service sysinit.target
-DefaultDependencies=no
+# Create custom swap service
+RUN echo '[Unit]' > /etc/systemd/system/swapfile.service && \
+    echo 'Description=Turn on swap file' >> /etc/systemd/system/swapfile.service && \
+    echo 'After=systemd-remount-fs.service' >> /etc/systemd/system/swapfile.service && \
+    echo 'Before=systemd-sysusers.service sysinit.target' >> /etc/systemd/system/swapfile.service && \
+    echo 'DefaultDependencies=no' >> /etc/systemd/system/swapfile.service && \
+    echo '' >> /etc/systemd/system/swapfile.service && \
+    echo '[Service]' >> /etc/systemd/system/swapfile.service && \
+    echo 'Type=oneshot' >> /etc/systemd/system/swapfile.service && \
+    echo 'RemainAfterExit=true' >> /etc/systemd/system/swapfile.service && \
+    echo 'ExecStart=/usr/sbin/swapon /swapfile' >> /etc/systemd/system/swapfile.service && \
+    echo 'ExecStop=/usr/sbin/swapoff /swapfile' >> /etc/systemd/system/swapfile.service && \
+    echo '' >> /etc/systemd/system/swapfile.service && \
+    echo '[Install]' >> /etc/systemd/system/swapfile.service && \
+    echo 'WantedBy=sysinit.target' >> /etc/systemd/system/swapfile.service
 
-[Service]
-Type=oneshot
-RemainAfterExit=true
-ExecStart=/usr/sbin/swapon /swapfile
-ExecStop=/usr/sbin/swapoff /swapfile
-
-[Install]
-WantedBy=sysinit.target
-EOF
-    ) && \
-    systemctl enable swapfile.service
+# Enable the swap service
+RUN ln -sf /etc/systemd/system/swapfile.service /etc/systemd/system/sysinit.target.wants/swapfile.service
 
 # Set identity and system branding with better error handling
 RUN for i in {1..3}; do \
