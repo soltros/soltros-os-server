@@ -1,5 +1,5 @@
 # Set base image and tag
-ARG BASE_IMAGE=quay.io/fedora/fedora-bootc
+ARG BASE_IMAGE=quay.io/centos-bootc/centos-bootc:stream9
 ARG TAG_VERSION=latest
 FROM ${BASE_IMAGE}:${TAG_VERSION}
 
