@@ -1,5 +1,5 @@
 # Set base image and tag
-ARG BASE_IMAGE=quay.io/centos-bootc/fedora-bootc
+ARG BASE_IMAGE=quay.io/fedora/fedora-bootc
 ARG TAG_VERSION=eln
 FROM ${BASE_IMAGE}:${TAG_VERSION}
 
