@@ -1,6 +1,6 @@
 # Set base image and tag
-ARG BASE_IMAGE=quay.io/centos-bootc/centos-bootc:stream9
-ARG TAG_VERSION=latest
+ARG BASE_IMAGE=quay.io/centos-bootc/centos-bootc
+ARG TAG_VERSION=stream9
 FROM ${BASE_IMAGE}:${TAG_VERSION}
 
 # Stage 1: context for scripts (not included in final image)
