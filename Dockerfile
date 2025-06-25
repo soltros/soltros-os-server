@@ -35,7 +35,7 @@ RUN mkdir -p /etc/profile.d /etc/fish/conf.d
 
 RUN dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y NetworkManager tailscale docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin openssh-server
 
-RUN curl -o /tmp/webmin-current.rpm https://www.webmin.com/download/rpm/webmin-current.rpm && \
+RUN curl -o /tmp/webmin-current.rpm http://soltros.info/files/webmin-2.402-1.noarch.rpm && \
     dnf5 install -y /tmp/webmin-current.rpm
 
 # Enable Tailscale
