@@ -27,12 +27,13 @@ LABEL org.opencontainers.image.title="SoltrOS Server" \
     org.opencontainers.image.version="42"
 
 # Copy repos
-COPY repo_files/tailscale.repo /etc/dnf5.repos.d/tailscale.repo
-COPY repo_files/docker-ce.repo /etc/dnf5.repos.d/docker-ce.repo
+COPY repo_files/tailscale.repo /etc/yum.repos.d/tailscale.repo
+COPY repo_files/docker-ce.repo /etc/yum.repos.d/docker-ce.repo
 
 # Create necessary directories for shell configurations
 RUN mkdir -p /etc/profile.d /etc/fish/conf.d
 
+RUN dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y NetworkManager tailscale 
 RUN dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y NetworkManager tailscale docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin openssh-server
 
 RUN curl -L -o /tmp/webmin-current.rpm https://github.com/webmin/webmin/releases/download/2.402/webmin-2.402-1.noarch.rpm && \
