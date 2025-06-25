@@ -10,7 +10,7 @@ log() {
 log "Starting system cleanup"
 
 # Clean package manager cache
-yum clean all
+dnf clean all
 
 # Clean temporary files but preserve important directories
 rm -rf /tmp/*

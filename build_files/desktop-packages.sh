@@ -68,9 +68,9 @@ LAYERED_PACKAGES=(
     btrfs-progs
 )
 
-yum install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y "${LAYERED_PACKAGES[@]}"
+dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y "${LAYERED_PACKAGES[@]}"
 
-yum remove plymouth -y
+dnf remove plymouth -y
 
 log "Package install complete."
 
