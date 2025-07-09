@@ -31,6 +31,9 @@ LABEL org.opencontainers.image.title="SoltrOS Server" \
 COPY repo_files/tailscale.repo /etc/yum.repos.d/tailscale.repo
 COPY repo_files/docker-ce.repo /etc/yum.repos.d/docker-ce.repo
 
+# Copy system files
+COPY system_files/usr /usr
+
 # Create necessary directories for shell configurations
 RUN mkdir -p /etc/profile.d /etc/fish/conf.d
 
