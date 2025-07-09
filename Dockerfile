@@ -16,6 +16,7 @@ RUN chmod +x \
     /ctx/cleanup.sh \
     /ctx/desktop-packages.sh \
     /ctx/disable-services.sh \
+    /ctx/nix-package-manager.sh \
    /ctx/desktop-defaults.sh
 
 # Stage 2: final image
@@ -24,7 +25,7 @@ FROM ${BASE_IMAGE}:${TAG_VERSION} AS soltros
 LABEL org.opencontainers.image.title="SoltrOS Server" \
     org.opencontainers.image.description="Server-ready Fedora CoreOS image with Docker CE support" \
     org.opencontainers.image.vendor="Derrik" \
-    org.opencontainers.image.version="42"
+    org.opencontainers.image.version="1"
 
 # Copy repos
 COPY repo_files/tailscale.repo /etc/yum.repos.d/tailscale.repo

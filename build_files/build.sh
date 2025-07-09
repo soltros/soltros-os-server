@@ -33,6 +33,9 @@ echo_group /ctx/signing.sh
 log "Install desktop packages"
 echo_group /ctx/desktop-packages.sh
 
+log "Install Nix package manager"
+echo_group /ctx/nix-package-manager.sh
+
 log "Apply system overrides"
 echo_group /ctx/overrides.sh
 
