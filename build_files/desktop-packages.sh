@@ -14,6 +14,7 @@ log "Installing RPM packages"
 # Layered Applications
 LAYERED_PACKAGES=(
     # Core system
+    zsh
     fish
     lm_sensors
     starship
