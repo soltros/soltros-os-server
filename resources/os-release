@@ -1,10 +1,12 @@
-NAME="SoltrOS"
-VERSION="42"
-ID=soltros
+NAME="SoltrOS Server"
+VERSION="1 (Electric Blue)"
+ID=fedora
 ID_LIKE=fedora
 VERSION_ID=42
-PRETTY_NAME="SoltrOS 42"
+PLATFORM_ID="platform:f42"
+PRETTY_NAME="SoltrOS Server 1 (Electric Blue)"
 ANSI_COLOR="0;36"
+CPE_NAME="cpe:/o:fedoraproject:fedora:42"
 HOME_URL="https://github.com/soltros/soltros-os"
 SUPPORT_URL="https://github.com/soltros/soltros-os"
 BUG_REPORT_URL="https://github.com/soltros/soltros-os/issues"
