@@ -31,14 +31,14 @@ A container-native server distribution based on [Universal Blue](https://univers
 
 ## 📦 Installation
 
-SoltrOS Server is designed to be installed on top of an existing Fedora Silverblue installation using `bootc switch`. This approach leverages Fedora's excellent installer while providing the specialized server environment.
+SoltrOS Server is designed to be installed from the built ISO. However, you can also install iton top of an existing Fedora Silverblue/Kinoite installation using `bootc switch`. 
 
 ### Prerequisites
-1. Install [Fedora Silverblue](https://fedoraproject.org/silverblue/) using the official installer
-2. Complete the initial setup and boot into your Silverblue system
+1. To install SoltrOS Server Edition, download the [ISO](https://publicweb.soltros.info/files/soltros-os-server-latest-42.iso), verify the [checksum](https://publicweb.soltros.info/files/soltros-os-server-latest-42.iso-CHECKSUM), and flash it to a USB.
+2. Boot from USB, and complete the initial setup and boot into your Silverblue system
 
 ### Switch to SoltrOS Server
-Once you have Fedora Silverblue running, switch to SoltrOS Server:
+Switch to SoltrOS Server with:
 
 ```bash
 # Switch to SoltrOS Server (requires reboot)
