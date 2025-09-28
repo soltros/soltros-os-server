@@ -1,4 +1,4 @@
-# SoltrOS Server
+# SoltrOS Server / /
 
 A container-native server distribution based on [Universal Blue](https://universal-blue.org/) and Fedora Silverblue, designed for modern infrastructure with Docker CE, virtualization, and remote management capabilities.
 
