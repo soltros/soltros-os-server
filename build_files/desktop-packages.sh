@@ -20,6 +20,7 @@ LAYERED_PACKAGES=(
     starship
 
     # Server applications
+    rsync
     audit
     aide 
     selinux-policy
